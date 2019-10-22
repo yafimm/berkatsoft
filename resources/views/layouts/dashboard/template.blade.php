@@ -43,7 +43,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="{{ asset('images/icon/logo.png') }}" alt="CoolAdmin" />
+                            <img src="{{ asset('img/icon/logo.png') }}" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -54,13 +54,17 @@
                 </div>
             </div>
 
-          @include('layouts.admin.sidebar')
+          @include('layouts.dashboard.sidebar')
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
-            @include('layouts.admin.header')
+            @include('layouts.dashboard.header')
 
-            @yield('content')
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+              @yield('content')
+            </div>
+            <!-- END MAIN CONTENT-->
 
             <!-- END PAGE CONTAINER-->
         </div>

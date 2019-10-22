@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Product;
+
+use Storage;
 
 class ProductController extends Controller
 {
@@ -16,17 +19,18 @@ class ProductController extends Controller
         if($request->file('image')->isValid()){
             $filename = $name.'.'.$ext;
             $upload_path = 'img/product';
-            $request->file('ProductImage')->move($upload_path, $filename);
+            $request->file('image')->move($upload_path, $filename);
+
             return $filename;
         }
         return false;
     }
 
-    private function hapusGambar(Product $product)
+    private function imageDelete(Product $product)
     {
-        $exist = Storage::disk('ProductImage')->exists($produk->image);
-        if(isset($produk->image) && $exist){
-            $delete = Storage::disk('ProductImage')->delete($produk->image);
+        $exist = Storage::disk('image')->exists($product->image);
+        if(isset($product->image) && $exist){
+            $delete = Storage::disk('image')->delete($product->image);
             return $delete; //Kalo delete gagal, bakal return false, kalo berhasil bakal return true
         }
     }
@@ -44,7 +48,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $all_product = Product::all();
+        $all_product = Product::Paginate(10);
         return view('product.index', compact('all_product'));
     }
 
@@ -57,12 +61,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
-        if($request->has('image'))
+        $data['admin'] = \Auth::user()->id;
+        $data['slug'] = Str::slug($request->name, '-');
+        if($request->hasFile('image'))
         {
             $data['image'] = $this->imageUpload($request);
-        }
 
+        }
+        // dd($data);
         $store = Product::create($data);
         if($store)
         {
@@ -95,7 +101,8 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->all();
-
+        $data['admin'] = \Auth::user()->id;
+        $data['slug'] = Str::slug($request->name, '-');
         if($request->has('image'))
         {
             $data['image'] = $this->imageUpload($request);
@@ -113,6 +120,7 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->imageDelete($product);
         $delete = $product->delete();
         if($delete)
         {
