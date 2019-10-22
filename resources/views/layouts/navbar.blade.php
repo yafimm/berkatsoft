@@ -4,7 +4,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="index.html"> <img src="img/logo.png" alt="logo"> </a>
+                    <a class="navbar-brand" href="index.html"> <img src="{{ asset('img/logo.png') }}" alt="logo"> </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -17,29 +17,51 @@
                                 <a class="nav-link" href="{{ url('') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Shop</a>
+                                <a class="nav-link" href="{{ route('product.shop') }}">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Contact</a>
+                                <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div class="hearer_icon d-flex">
-                        <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                        <!-- <a href=""><i class="ti-heart"></i></a> -->
-                        <div class="dropdown cart">
-                            <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cart-plus"></i>
-                            </a>
-                            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <div class="dropdown cart">
+                          <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cart-plus"></i>
+                          </a>
+                          <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <div class="single_product">
 
-                                </div>
+                              </div>
                             </div> -->
 
                         </div>
+                        @if(!\Auth::check())
+                        <a href="{{ route('login') }}" class="genric-btn success-border circle small">Sign in or Sign up</a>
+                        @else
+                        <div class="dropdown">
+                          <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Dashboard</a>
+                            <a class="dropdown-item" href="#">Order</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"  onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                            Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                            </form>
+                        </div>
+
+                      </div>
+                      @endif
                     </div>
+
                 </nav>
             </div>
         </div>

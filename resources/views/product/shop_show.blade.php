@@ -57,7 +57,6 @@
               <span class="number-increment"> <i class="ti-plus"></i></span>
             </div>
             <a href="#" class="btn_3">add to cart</a>
-            <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
           </div>
         </div>
       </div>
