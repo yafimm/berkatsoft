@@ -2879,7 +2879,7 @@ ul {
 }
 
 /* line 82, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product_list.scss */
-.single_product_item .single_product_text a {
+/* .single_product_item .single_product_text a {
   color: #ff3368;
   text-transform: uppercase;
   font-size: 18px;
@@ -2890,7 +2890,7 @@ ul {
   visibility: hidden;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-}
+} */
 
 /* line 93, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product_list.scss */
 .single_product_item .single_product_text a i {
