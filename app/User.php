@@ -37,28 +37,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin(){
-      if($this->id_role === 2){
-           return true;
-       }
-       else{
-           return false;
-       }
-    }
+      public function isAdmin(){
+        if($this->role_id === 2){
+             return true;
+         }
+         else{
+             return false;
+         }
+      }
+
+      public function isUser(){
+        if($this->role_id === 1){
+             return true;
+         }
+         else{
+             return false;
+         }
+      }
 
 
-        public function transaksi(){
-          return $this->hasMany('App\Transaksi', 'user', 'id');
+      public function transaksi(){
+        return $this->hasMany('App\Transaksi', 'user', 'id');
+      }
+
+      public function transaksi_admin(){
+        if($this->isAdmin()){
+          return $this->hasMany('App\Transaksi', 'admin', 'id');
         }
+        return false;
+      }
 
-        public function transaksi_admin(){
-          if($this->isAdmin()){
-            return $this->hasMany('App\Transaksi', 'admin', 'id');
-          }
-          return false;
-        }
-
-        public function role(){
-          return $this->belongsTo('App\Role', 'role_id');
-        }
+      public function role(){
+        return $this->belongsTo('App\Role', 'role_id');
+      }
   }

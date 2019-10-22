@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
           'username' => 'myadmin',
           'password' => bcrypt('myadmin'),
           'name' => 'I am Admin',
-          'role_id' => 1,
+          'role_id' => 2,
           'email' => 'admin@gmail.com',
           'address' => 'Jl. Jalan Road no 21, Kecamatan, Kota Bandung',
           'phone_number' => '0888181818',

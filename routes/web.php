@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin']], function(){
+    Route::get('dashboard', 'UsersController@admindashboard')->name('admin.dashboard');
     Route::resource('kategori', 'KategoriController');
     Route::resource('product', 'ProductController');
 });
