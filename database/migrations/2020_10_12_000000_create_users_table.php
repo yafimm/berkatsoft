@@ -15,7 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_role')->unsigned();
+            $table->integer('role_id')->unsigned();
+            $table->string('username', 30)->unique();
             $table->string('password');
             $table->string('name', 50);
             $table->string('email', 100)->unique();
@@ -52,13 +53,21 @@ class CreateUsersTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
+        Schema::table('order', function(Blueprint $table){
+          $table->dropForeign('order_admin_foreign');
+        });
+
+        Schema::table('order', function(Blueprint $table){
+          $table->dropForeign('order_user_foreign');
+        });
+
+        Schema::table('product', function(Blueprint $table){
+          $table->dropForeign('product_admin_foreign');
+        });
+
         Schema::dropIfExists('users');
     }
 }

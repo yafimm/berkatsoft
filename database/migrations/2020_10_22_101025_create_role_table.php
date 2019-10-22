@@ -20,7 +20,7 @@ class CreateRoleTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-          $table->foreign('id_role')
+          $table->foreign('role_id')
                 ->references('id')
                 ->on('role')
                 ->onDelete('cascade')
@@ -35,6 +35,9 @@ class CreateRoleTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function(Blueprint $table){
+          $table->dropForeign('users_role_id_foreign');
+        });
         Schema::dropIfExists('role');
     }
 }

@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -46,27 +46,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+     protected function validator(array $data)
+     {
+         return Validator::make($data, [
+             'name' => ['required', 'string', 'min:4', 'max:50'],
+             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+             'username' => ['required','string', 'min:6', 'max:30', 'unique:users'],
+             'password' => ['required', 'string', 'min:8', 'confirmed'],
+             'password_confirmation' => ['sometimes','required_with:password'],
+         ]);
+     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+     /**
+      * Create a new user instance after a valid registration.
+      *
+      * @param  array  $data
+      * @return \App\User
+      */
+     protected function create(array $data)
+     {
+       return User::create([
+           'name' => $data['name'],
+           'username' => $data['username'],
+           'email' => $data['email'],
+           'password' => Hash::make($data['password']),
+           'role_id' => 1,
+       ]);
+     }
 }

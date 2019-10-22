@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -25,15 +26,39 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username()
+    {
+        return 'username';
+    }
+
+    public function showLoginForm(Request $request  )
+    {
+        if(!$request->session()->exists('link'))
+        {
+            $request->session()->put('link', url()->previous());
+        }
+        return view('auth.login');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if(\Auth::user()->isAdmin()){
+            return redirect()->route('admin.dashboard');
+        }
+
+        if($request->session()->exists('link') && $request->session()->get('link') != url('login'))
+        {
+            return redirect($request->session()->pull('link'));
+        }
+
+        return redirect('/');
     }
 }
