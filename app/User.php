@@ -45,4 +45,20 @@ class User extends Authenticatable
            return false;
        }
     }
-}
+
+
+        public function transaksi(){
+          return $this->hasMany('App\Transaksi', 'user', 'id');
+        }
+
+        public function transaksi_admin(){
+          if($this->isAdmin()){
+            return $this->hasMany('App\Transaksi', 'admin', 'id');
+          }
+          return false;
+        }
+
+        public function role(){
+          return $this->belongsTo('App\Role', 'role_id');
+        }
+  }

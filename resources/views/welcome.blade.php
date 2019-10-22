@@ -1,3 +1,6 @@
+@extends('layouts.template')
+@section('content')
+
 <!-- banner part start-->
 <section class="banner_part">
     <div class="container">
@@ -470,3 +473,6 @@
     </div>
 </section>
 <!--::subscribe_area part end::-->
+
+
+@endsection
