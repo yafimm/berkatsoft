@@ -28,12 +28,14 @@ Route::group(['middleware' => ['web']], function(){
 
 Route::group(['middleware' => ['web','user']], function(){
     Route::get('dashboard', 'UsersController@admindashboard')->name('user.dashboard');
-    Route::post('/cart/checkout', 'OrderController@store')->name('order.store');
+    Route::post('/cart/checkout', 'OrderController@store')->name('order.checkout');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin']], function(){
     Route::get('dashboard', 'UsersController@admindashboard')->name('admin.dashboard');
-    Route::resource('kategori', 'KategoriController');
+    Route::get('users', 'UsersController@index_admin')->name('user.indexadmin');
+    Route::get('order/record', 'OrderController@record')->name('order.record');
+    Route::resource('order', 'OrderController');
     Route::resource('product', 'ProductController');
 });
 

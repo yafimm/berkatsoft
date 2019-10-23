@@ -1,10 +1,10 @@
 <?php
-if(!function_exists('setIdTransaksi')) {
-    function setIdTransaksi() {
-        $id = 'TRS'.date('ymd');
-        $lastId = DB::table('transaksi')->where('id','like', $id.'%')->orderBy('id', 'DESC')->first();
+if(!function_exists('setOrderId')) {
+    function setOrderId() {
+        $id = '#'.date('ymd');
+        $lastId = DB::table('order')->where('id','like', $id.'%')->orderBy('id', 'DESC')->first();
         if($lastId){
-            $count = substr($lastId->id, 9);
+            $count = substr($lastId->id, 7);
             $count++;
 
             if(strlen($count) == 1){

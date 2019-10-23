@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -44,6 +45,12 @@ class UsersController extends Controller
               $delete = Storage::disk('foto')->delete($user->foto);
               return $delete; //Kalo delete gagal, bakal return false, kalo berhasil bakal return true
           }
+      }
+
+      public function index_admin()
+      {
+          $all_user = User::where('role_id','=',1)->Paginate(20);
+          return view('user.indexadmin', compact('all_user'));
       }
 
       public function dashboard()

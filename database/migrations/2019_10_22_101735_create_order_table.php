@@ -16,7 +16,7 @@ class CreateOrderTable extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->string('id', 10)->primary();
             $table->integer('user')->unsigned();
-            $table->integer('admin')->unsigned();
+            $table->integer('admin')->unsigned()->nullable();
             $table->integer('total');
             $table->enum('status', ['Paid', 'Unpaid'])->default('Unpaid');
             $table->timestamps();

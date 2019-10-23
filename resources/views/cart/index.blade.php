@@ -97,7 +97,7 @@
           </tbody>
         </table>
         <div class="mb-10">
-          <form id="order_checkout" action="{{ route('order.store') }}" method="POST">
+          <form id="order_checkout" action="{{ route('order.checkout') }}" method="POST">
           @csrf
           @method('POST')
           <textarea class="single-textarea" name="address" placeholder="Address" onfocus="this.placeholder = ''"
