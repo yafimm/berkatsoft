@@ -2241,7 +2241,7 @@ ul {
   color: #000;
   position: relative;
   z-index: 1;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 /* line 130, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_menu.scss */
@@ -2253,7 +2253,7 @@ ul {
   height: 14px;
   right: -8px;
   top: -8px;
-  content: "5";
+  content: "0";
   text-align: center;
   line-height: 15px;
   font-size: 10px;
@@ -7776,3 +7776,25 @@ h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:0%;
+  content: attr(data-count);
+  font-size:40%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  color:$shopping-cart-red;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  background: white;
+  border-style:solid;
+}
+.fa-circle {
+  color:#DF0000;
+}

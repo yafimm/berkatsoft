@@ -18,8 +18,17 @@ Auth::routes();
 Route::get('/shop', 'ProductController@shop')->name('product.shop');
 Route::get('/shop/{slug}', 'ProductController@shop_show')->name('product.shop.show');
 Route::get('/contact', 'HomeController@index')->name('contact');
+Route::get('/cart', 'CartController@index')->name('cart.index');
 
-Route::group(['middleware' => ['web', 'auth']], function(){
+Route::group(['middleware' => ['web']], function(){
+  Route::post('/cart/add', 'CartController@add')->name('cart.add');
+  Route::put('/cart/update', 'CartController@update')->name('cart.update');
+  Route::delete('/cart/destroy', 'CartController@destroy')->name('cart.destroy');
+});
+
+Route::group(['middleware' => ['web','user']], function(){
+    Route::get('dashboard', 'UsersController@admindashboard')->name('user.dashboard');
+    Route::post('/cart/checkout', 'OrderController@store')->name('order.store');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin']], function(){

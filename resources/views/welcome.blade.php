@@ -156,7 +156,7 @@
                                   <div class="single_product_text">
                                       <h4>{{ $product->name }}</h4>
                                       <h3>Rp. {{ yaff_money_format($product->price) }}</h3>
-                                      <a href="#" class="add_cart">+ add to cart<i class="ti-shopping-cart"></i></a>
+                                      <a href="#" data-id="{{ $product->id }}" class="add_cart">+ add to cart<i class="ti-shopping-cart"></i></a>
                                   </div>
                                 </a>
                               </div>
