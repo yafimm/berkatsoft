@@ -26,4 +26,9 @@ class HomeController extends Controller
         $newest_product = \App\Product::orderBy('created_at', 'desc')->take(8)->get();
         return view('welcome', compact('newest_product'));
     }
+
+    public function contact()
+    {
+        return view('contact');
+    }
 }

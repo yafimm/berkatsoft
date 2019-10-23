@@ -3,6 +3,7 @@
 @section('content')
 <!--================login_part Area =================-->
 <section class="login_part padding_top">
+  @include('_partial.flash_message')
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">

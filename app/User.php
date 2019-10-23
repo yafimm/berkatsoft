@@ -56,13 +56,13 @@ class User extends Authenticatable
       }
 
 
-      public function transaksi(){
-        return $this->hasMany('App\Transaksi', 'user', 'id');
+      public function order(){
+        return $this->hasMany('App\Order', 'user', 'id');
       }
 
-      public function transaksi_admin(){
+      public function order_admin(){
         if($this->isAdmin()){
-          return $this->hasMany('App\Transaksi', 'admin', 'id');
+          return $this->hasMany('App\Order', 'admin', 'id');
         }
         return false;
       }

@@ -101,7 +101,7 @@
           @csrf
           @method('POST')
           <textarea class="single-textarea" name="address" placeholder="Address" onfocus="this.placeholder = ''"
-          onblur="this.placeholder = 'Address'" required>{{ Auth::user()->address ? Auth::user()->address : '' }}</textarea>
+          onblur="this.placeholder = 'Address'" required></textarea>
           </form>
         </div>
         <small class="form-text text-info">*specify your address for free shipping</small>

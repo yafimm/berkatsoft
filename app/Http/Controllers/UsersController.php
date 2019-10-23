@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -60,15 +61,17 @@ class UsersController extends Controller
 
       public function admindashboard()
       {
-          return view('admin.dashboard');
+          $total_user = User::where('role_id', '=', 1)->count();
+          $order_unpaid = \App\Order::where('status', '=', 'Unpaid')->count();
+          return view('user.dashboard', compact('total_user', 'order_unpaid'));
       }
 
-      public function show($username)
+      public function account()
       {
-          $user = User::where('username', '=', $username)->first();
+          $user = \Auth::user();
           if($user)
           {
-              return view('profil.index-user', compact('user'));
+              return view('user.account', compact('user'));
           }
           return abort(404);
       }
@@ -83,62 +86,59 @@ class UsersController extends Controller
           return view('profil.edit-password');
       }
 
-      public function update_account(Request $request)
+      public function account_update(Request $request)
       {
           $this->validator($request);
           $user = User::find(\Auth::user()->id);
-          if($user){
-              $input = $request->all();
-              if(isset($input['foto']))
-              {
-                  $this->hapusGambar($user);
-                  $input['foto'] = $this->uploadGambar($request);
-              }
-
-              $update = $user->update($input);
-
-              if($update)
-              {
-                  if(\Auth::user()->isAdmin()){
-                      $route = 'account.index.admin';
-                  }else{
-                      $route = "'user.show', {{ \Auth::user()->username }} ";
-                  }
-
-                  return redirect()->route($route)->with('flash_message', 'Data Akun berhasil diubah')
-                                         ->with('alert-class', 'alert-success');
-              }
-              // kalo gagal dilempar kesini
-              return redirect()->back()->with('flash_message', 'Data Akun gagal diubah')
-                                        ->with('alert-class', 'alert-danger');
-
+          $input = $request->all();
+          if(isset($input['photo']))
+          {
+              $this->hapusGambar($user);
+              $input['photo'] = $this->uploadGambar($request);
           }
-          return abort(404);
+
+          $update = $user->update($input);
+
+          if($update)
+          {
+              if(\Auth::user()->isAdmin()){
+                  $route = 'admin.account';
+              }else{
+                  $route = 'user.account';
+              }
+
+              return redirect()->route($route)->with('flash_message', 'Profile successfully updated')
+                                     ->with('alert-class', 'alert-success');
+          }
+          // kalo gagal dilempar kesini
+          return redirect()->back()->with('flash_message', 'Profile failed to updated')
+                                    ->with('alert-class', 'alert-danger');
+
       }
 
-      public function update_password(Request $request)
+      public function password_update(Request $request)
       {
           $validator = \Validator::make($request->all(), [
-              'old_password' => 'required',
+              'password' => 'required',
               'new_password'=>'required|confirmed|min:6|max:32',
-              'new_password_confirmation'=>'sometimes|required_with:new_password',
+              'new_password_confirmation'=>'required_with:new_password',
           ]);
 
           if ($validator->fails()) {
-              return redirect()->route('account.index')
+              return redirect()->back()
                               ->withErrors($validator)
                               ->with('alert-class', 'alert-danger')
-                              ->with('flash_message', 'Ada kesalahan pada saat memasukkan data password');
+                              ->with('flash_message', 'There was an error when entering the password !!');
           }else{
               $user = User::find(\Auth::user()->id);
               if($user){
-                if(Hash::check($request->old_password, $user->password)){
+                if(Hash::check($request->password, $user->password)){
                     $user->update(['password' => bcrypt($request->new_password)]);
-                    return redirect()->route('user.show', $user->username)->with('flash_message', 'Password Akun berhasil diubah')
+                    return redirect()->back()->with('flash_message', 'Password successfully updated')
                                                         ->with('alert-class', 'alert-success');
                 }
-                return redirect()->back()->with('flash_message', 'Password lama tidak sesuai')
-                                                          ->with('alert-class', 'alert-success');
+                return redirect()->back()->with('flash_message', 'Old Password is wrong !!')
+                                                          ->with('alert-class', 'alert-danger');
               }
               return abort(404);
           }

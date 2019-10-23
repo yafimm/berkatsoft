@@ -81,7 +81,7 @@ function totalAll(){
         success: function(response)
         {
           Swal.fire(response, "is added to cart !", "success");
-          totalCountCart();
+          // totalCountCart();
         },
         error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
             Swal.fire("Product is out of stock");

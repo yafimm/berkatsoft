@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="breadcrumb_iner">
                     <div class="breadcrumb_iner_item">
-                        <h2>Shop Category</h2>
+                        <h2>Shop</h2>
                         <p><a href="{{ url('') }}">Home</a> <span>-</span> Shop</p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                                 <div class="single_product_text">
                                     <h5>{{ $product->name }}</h5>
                                     <h3>Rp. {{ yaff_money_format($product->price) }}</h3>
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-shopping-cart"></i></a>
+                                    <a href="#" data-id="{{ $product->id }}" class="add_cart">+ add to cart<i class="ti-shopping-cart"></i></a>
                                 </div>
                               </a>
                           </div>

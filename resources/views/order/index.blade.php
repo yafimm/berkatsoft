@@ -11,9 +11,9 @@
         <th>Id</th>
         <th>User</th>
         <th>Admin</th>
-        <th>Address</th>
+        <th>Date</th>
         <th>Total</th>
-        <th>Time</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -22,11 +22,12 @@
       <tr>
         <td>{{ $key + 1 }}</td>
         <td>{{ $order->id }}</td>
-        <td>{{ $order->user->username }}</td>
-        <td>{{ $order->admin->username }}</td>
-        <td>{{ $order->stock }}</td>
-        <td>{{ $order->admin }}</td>
-        <td><a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+        <td>{{ $order->user_user->username }}</td>
+        <td>{{ ($order->user_admin) ? $order->user_admin()->username : '-'}}</td>
+        <td>{{ $order->created_at->format('d/m/Y') }}</td>
+        <td>{{ $order->total }}</td>
+        <td class="text-bold {{ ($order->status = 'Unpaid') ? 'text-danger' : 'text-success' }}">{{ $order->status }}</td>
+        <td><a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary"><i class="fas fa-detail"></i></a>
           <form action="{{ route('order.destroy', $order->id) }}" method="POST">
           @method('delete')
           @csrf

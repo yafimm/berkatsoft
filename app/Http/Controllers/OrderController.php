@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
+use App\User;
 
 class OrderController extends Controller
 {
     protected function orderDetail($id)
     {
+          $id = utf8_encode($id);
           $order = \Auth::user()->order->find($id);
           if($order)
           {
               $order_product = $order->product;
-              return view('order.show_user', compact('order', 'order_product'));
+              return view('order.detail', compact('order', 'order_product'));
           }
           return abort(404);
     }
@@ -69,23 +71,17 @@ class OrderController extends Controller
           $all_order = User::find(\Auth::user()->id)->order()->orderBy('status', 'desc')->Paginate(6);
 
           // if yang ini untuk menampilkan detailnya
-          if($all_order && \Auth::check())
+          if(isset($request->id))
           {
-            if(isset($request->id))
-            {
-                return $this->orderDetail($request->id);
-            }
-            else
-            {
-                return view('order.index_user', compact('all_order'));
-            }
+              return $this->orderDetail($request->id);
           }
-          return abort(404);
+          return view('order.index_user', compact('all_order'));
+          // return abort(404);
     }
 
     public function create()
     {
-        //
+        return abort(404);
     }
 
 
@@ -119,21 +115,32 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        //
-    }
-
-    public function edit($id)
-    {
         $order = Order::find($id);
+        dd($order);
         if($order)
         {
-            return view('order.edit', compact('order'));
+            $product = $order->product;
+            return view('order.detail', compact('order', 'product'));
         }
         return abort(404);
     }
 
-    public function update(Request $request, $id)
+    public function edit($id)
     {
+      abort(404);
+    }
+
+    public function update_status($order)
+    {
+        $order = Order::find($id);
+        $update = $order->update(['status' => 'Paid', 'admin' => \Auth::user()->id]);
+        if($update){
+              return redirect()->route('order.index')->with('alert-class', 'alert-danger')
+                                      ->with('flash_message', 'Order status successfuly updated !!');
+
+        }
+        return redirect()->route('order.index')->with('alert-class', 'alert-danger')
+                                 ->with('flash_message', 'Order status failed to updated !!');
 
     }
 

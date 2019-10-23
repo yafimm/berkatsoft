@@ -72,16 +72,18 @@
                                             <a href="#">{{ \Auth::user()->name }}</a>
                                         </h5>
                                         <span class="email">{{ \Auth::user()->email }}</span>
+                                        <span class="font-weight">{{ \Auth::user()->role->role_name }}</span>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="#">
+                                        @if(Auth::user()->isAdmin())
+                                        <a href="{{ route('admin.account') }}">
                                             <i class="zmdi zmdi-account"></i>Account</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
+                                        @else
+                                        <a href="{{ route('user.account') }}">
+                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                        @endif
                                     </div>
                                 </div>
 

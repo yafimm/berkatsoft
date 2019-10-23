@@ -40,8 +40,15 @@
                           <i class="fas fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Dashboard</a>
-                            <a class="dropdown-item" href="#">Order</a>
+                            <h6 class="dropdown-header">{{ Auth::user()->username }}</h6>
+                            @if(Auth::user()->isAdmin())
+                              <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                            @else
+                              <a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a>
+                              <a class="dropdown-item" href="{{ route('order.index_user')}}">Order</a>
+                            @endif
+                            <a class="dropdown-item" href="{{ route('user.account') }}">Account</a>
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"  onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

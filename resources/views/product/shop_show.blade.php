@@ -53,10 +53,10 @@
           <div class="card_area d-flex justify-content-between align-items-center">
             <div class="product_count">
               <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-              <input class="input-number" type="text" value="1" min="0" max="10">
+              <input class="input-number" name="jumlah" type="text" value="1" min="0" max="{{ $product->stock }}">
               <span class="number-increment"> <i class="ti-plus"></i></span>
             </div>
-            <a href="#" class="btn_3">add to cart</a>
+            <a href="#" class="btn_3" data-id="{{ $product->id }}" id="add-to-cart">add to cart</a>
           </div>
         </div>
       </div>

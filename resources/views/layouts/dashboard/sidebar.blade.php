@@ -4,27 +4,40 @@
             @if(Auth::user()->isAdmin())
             <li>
               <a href="{{ route('admin.dashboard') }}">
-                <i class="fas fa-chart-bar"></i>Dashboard</a>
-              </li>
+                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            </li>
             <li>
-                <a href="{{ route('product.index') }}">
-                    <i class="fas fa-chart-bar"></i>Products</a>
+              <a href="{{ url('') }}">
+                <i class="fas fa-globe"></i>Go to website</a>
             </li>
             <li class="active has-sub">
                 <a class="js-arrow" href="#">
-                    <i class="fas fa-tachometer-alt"></i>Order</a>
+                    <i class="fab fa-product-hunt"></i>Product</a>
                 <ul class="list-unstyled navbar__sub-list js-sub-list">
                     <li>
-                        <a href="index.html">Record Order</a>
+                        <a href="{{ route('product.index') }}">Product</a>
                     </li>
                     <li>
-                        <a href="index2.html">Order Index</a>
+                        <a href="index2.html">Category</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active has-sub">
+                <a class="js-arrow" href="#">
+                    <i class="fas fa-file-alt"></i>Order</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{{ route('order.record') }}">Record Order</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('order.index') }}">Order Index</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="{{ route('user.indexadmin') }}">
-                    <i class="fas fa-chart-bar"></i>User</a>
+                    <i class="fas fa-users"></i>User
+                  </a>
             </li>
             @endif
         </ul>
@@ -44,19 +57,26 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-
               @if(Auth::user()->isAdmin())
               <li>
                 <a href="{{ route('admin.dashboard') }}">
-                  <i class="fas fa-chart-bar"></i>Dashboard</a>
-                </li>
-              <li>
-                  <a href="{{ route('product.index') }}">
-                      <i class="fas fa-chart-bar"></i>Products</a>
+                  <i class="fas fa-tachometer-alt"></i>Dashboard</a>
               </li>
               <li class="active has-sub">
                   <a class="js-arrow" href="#">
-                      <i class="fas fa-tachometer-alt"></i>Order</a>
+                      <i class="fab fa-product-hunt"></i>Product</a>
+                  <ul class="list-unstyled navbar__sub-list js-sub-list">
+                      <li>
+                          <a href="{{ route('product.index') }}">Product</a>
+                      </li>
+                      <li>
+                          <a href="index2.html">Category</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="active has-sub">
+                  <a class="js-arrow" href="#">
+                      <i class="fas fa-file-alt"></i>Order</a>
                   <ul class="list-unstyled navbar__sub-list js-sub-list">
                       <li>
                           <a href="{{ route('order.record') }}">Record Order</a>
@@ -68,10 +88,24 @@
               </li>
               <li>
                   <a href="{{ route('user.indexadmin') }}">
-                      <i class="fas fa-chart-bar"></i>Users</a>
+                      <i class="fas fa-users"></i>User
+                    </a>
+              </li>
+              @else
+              <li>
+                <a href="{{ route('user.dashboard') }}">
+                  <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+              </li>
+              <li>
+                  <a href="{{ route('order.index_user') }}">
+                      <i class="fas fa-file-alt"></i>Order
+                    </a>
               </li>
               @endif
-
+              <li>
+                <a href="{{ url('') }}">
+                  <i class="fas fa-globe"></i>Go to website</a>
+              </li>
             </ul>
         </nav>
     </div>

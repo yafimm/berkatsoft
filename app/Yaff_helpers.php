@@ -1,7 +1,7 @@
 <?php
 if(!function_exists('setOrderId')) {
     function setOrderId() {
-        $id = '#'.date('ymd');
+        $id = 'I'.date('ymd');
         $lastId = DB::table('order')->where('id','like', $id.'%')->orderBy('id', 'DESC')->first();
         if($lastId){
             $count = substr($lastId->id, 7);

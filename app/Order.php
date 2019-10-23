@@ -17,6 +17,16 @@ class Order extends Model
   ];
 
   public function product(){
-    return $this->belongsToMany('App\product', 'order_detail', 'order_id', 'product_id')->withPivot('price', 'amount')->withTimestamps();
+    return $this->belongsToMany('App\product', 'order_detail', 'order_id', 'product_id')->withPivot('sub_total', 'amount')->withTimestamps();
+  }
+
+  public function user_user()
+  {
+    return $this->belongsTo('App\User', 'user');
+  }
+
+  public function user_admin()
+  {
+    return $this->belongsTo('App\User', 'admin');
   }
 }
